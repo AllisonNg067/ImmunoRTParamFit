@@ -80,6 +80,7 @@ schedule_list, DList = get_treatment_and_dose(bed, RT_fractions, param, PD_fract
 # Load from CSV
 params = pd.read_csv('parameters.csv').values.tolist()
 sample_size = len(params)
+initial_cell_count = 100000
 #print(params)
 # Now you have a list of parameters for each patient
 # You can now evaluate the treatment schedules in parallel
@@ -88,6 +89,7 @@ def evaluate_patient(i, t_rad, t_treat_p1, t_treat_c4, D):
   paramNew = params[i]
   paramNew[22] = 0.2/CTLA4_fractions
   paramNew[32] = 0.6/PD_fractions
+  paramNew[0] = initial_cell_count
     #print(paramNew)
 
 
@@ -124,7 +126,7 @@ def trial_treatment(i, file):
   t_rad = schedule_list[i][0]
   # print('rad', t_rad)
   t_treat_p1 = schedule_list[i][1]
-  t_treat_c4 = [10]
+  t_treat_c4 = schedule_list[i][2]
   # print('p1', t_treat_p1)
   t_f2 = max(max(t_rad[-1], t_treat_p1[-1]), t_treat_c4[-1]) + 30
   #print('trial t_f2', t_f2)
