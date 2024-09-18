@@ -23,7 +23,7 @@ def get_treatment_and_dose(bioEffDose, numRT, param, numPD, numCTLA4):
   for x in RTschedule_list:
     for y in PDschedule_list:
         for z in CTLA4schedule_list:
-            schedule.append([x, y])
+            schedule.append([x, y, z])
   DList = []
   D = get_equivalent_bed_treatment(param, bioEffDose, numRT)
   for i in range(len(schedule)):
