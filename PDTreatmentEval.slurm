@@ -1,5 +1,5 @@
 #!/bin/bash -l
-#SBATCH --job-name=RTTreatmentEval
+#SBATCH --job-name=PDTreatmentEval
 #SBATCH --nodes=4
 #SBATCH --tasks-per-node=10
 #SBATCH --cpus-per-task=10

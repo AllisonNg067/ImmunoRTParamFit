@@ -65,7 +65,7 @@ PD_fractions = 1
          #print('errors', errorMerged)
 all_res_list = []
 IT = (True, True)
-RT_fractions = 2
+RT_fractions = 1
 param = pd.read_csv('mean of each parameter for RT set.csv')
 param = list(np.transpose(np.array(param))[0])
 param[26] = 0.13795567390561228
@@ -74,7 +74,8 @@ param[28] = 0.04813514085703568
 param[33] = 0.0897670603865841
 param.append(2.2458318956090505*10**80)
 bed = 80
-file_name = 'new RT ' + str(RT_fractions) + ' PD ' + str(PD_fractions) + ' a.csv'
+initial_cell_count = 100000
+file_name = 'new RT ' + str(RT_fractions) + ' PD ' + str(PD_fractions) + ' ' + str(initial_cell_count) + ' a.csv'
 schedule_list, DList = get_treatment_and_dose(bed, RT_fractions, param, PD_fractions, 0)
 #print('Dlist', DList)
 #print(schedule_list)
@@ -85,6 +86,7 @@ schedule_list, DList = get_treatment_and_dose(bed, RT_fractions, param, PD_fract
 # Assuming 'params' is your list of parameters
 # Load from CSV
 params = pd.read_csv('parameters.csv').values.tolist()
+sample_size = 5
 sample_size = len(params)
 #print(params)
 # Now you have a list of parameters for each patient
@@ -93,9 +95,9 @@ def evaluate_patient(i, t_rad, t_treat_p1, t_treat_c4, D):
   # Create a new random number generator with a unique seed for each patient
   paramNew = params[i]
   paramNew[22] = 0
-  paramNew[32] = 0.6/PD_fractions
+  paramNew[32] = 0.8/PD_fractions
     #print(paramNew)
-  
+  paramNew[0] = initial_cell_count
   
   # t_rad = np.array(schedule_list[i][0])
   # #t_treat_c4 = np.zeros(3)
@@ -150,7 +152,7 @@ def trial_treatment(i, file):
           #print('tcp', TCPs)
           #print(times)
   treatment_times = [x for x in treatment_times if np.isnan(x) == False]
-  treatment_res_list = [t_rad, D, t_treat_p1, 0.6/PD_fractions, t_treat_c4, 0.2, np.mean(TCPs), np.mean(times), TCPs, times]
+  treatment_res_list = [t_rad, D, t_treat_p1, 0.8/PD_fractions, t_treat_c4, 0, np.mean(TCPs), np.mean(times), TCPs, times]
   return treatment_res_list 
 
 # Define the treatment schedules and doses
