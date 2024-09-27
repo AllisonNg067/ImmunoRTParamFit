@@ -68,7 +68,8 @@ param[28] = 0.04813514085703568
 param[33] = 0.0897670603865841
 param.append(2.2458318956090505*10**80)
 bed = 80
-file_name = 'new RT ' + str(RT_fractions) + ' PD ' + str(PD_fractions) + ' CTLA4 ' + str(CTLA4_fractions) + ' a.csv'
+initial_cell_count = 100000
+file_name = 'new RT ' + str(RT_fractions) + ' PD ' + str(PD_fractions) + ' CTLA4 ' + str(CTLA4_fractions) + ' ' + str(initial_cell_count) + ' a.csv'
 schedule_list, DList = get_treatment_and_dose(bed, RT_fractions, param, PD_fractions, CTLA4_fractions)
 #print('Dlist', DList)
 #print(schedule_list)
@@ -157,7 +158,7 @@ iterations = len(schedule_list)  # Or any other number of iterations
 # for k in range(min(iterations,50)):
 #     print('k', k)
 #     print(params[k])
-args = [(k, params) for k in range(min(iterations,1000))]
+args = [(k, params) for k in range(min(iterations,800))]
 # Use a ThreadPoolExecutor to run the iterations in parallel
 with concurrent.futures.ThreadPoolExecutor() as executor:
     data = list(executor.map(lambda p: trial_treatment(*p), args))

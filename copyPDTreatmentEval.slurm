@@ -1,6 +1,6 @@
 #!/bin/bash -l
-#SBATCH --job-name=RTParallelParameterFit
-#SBATCH --nodes=6
+#SBATCH --job-name=PDTreatmentEval
+#SBATCH --nodes=4
 #SBATCH --tasks-per-node=10
 #SBATCH --cpus-per-task=10
 #SBATCH --time=24:00:00
@@ -12,4 +12,4 @@ module load py-numpy/1.26.1
 module load py-matplotlib/3.8.1
 module load py-pandas/2.1.2
 # launch serial python script
-srun python3 CTLA4TreatmentEval.py
+srun python3 copyPDTreatmentEval.py

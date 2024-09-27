@@ -63,7 +63,7 @@ p1 = 0
          #print('errors', errorMerged)
 all_res_list = []
 IT = (True, True)
-RT_fractions = 3
+RT_fractions = 1
 param = pd.read_csv('mean of each parameter for RT set.csv')
 param = list(np.transpose(np.array(param))[0])
 param[26] = 0.13795567390561228
@@ -72,7 +72,7 @@ param[28] = 0.04813514085703568
 param[33] = 0.0897670603865841
 param.append(2.2458318956090505*10**80)
 bed = 80
-file_name = 'new RT ' + str(RT_fractions) + ' fraction b ' + str(bed) + ' .csv'
+file_name = 'updated RT ' + str(RT_fractions) + ' fraction a ' + str(bed) + ' .csv'
 schedule_list, DList = get_treatment_and_dose(bed, RT_fractions, param, 0, 0)
 #print('Dlist', DList)
 #print(schedule_list)
@@ -92,6 +92,7 @@ def evaluate_patient(i, t_rad, t_treat_p1, t_treat_c4, D):
   paramNew = params[i]
   paramNew[22] = 0
   paramNew[32] = 0
+  paramNew[0] = 100000
     #print(paramNew)
   
   
@@ -159,7 +160,7 @@ iterations = len(schedule_list)  # Or any other number of iterations
 # for k in range(min(iterations,50)):
 #     print('k', k)
 #     print(params[k])
-args = [(k, params) for k in range(800, min(iterations,1600))]
+args = [(k, params) for k in range(min(iterations,800))]
 # Use a ThreadPoolExecutor to run the iterations in parallel
 with concurrent.futures.ThreadPoolExecutor() as executor:
     data = list(executor.map(lambda p: trial_treatment(*p), args))
