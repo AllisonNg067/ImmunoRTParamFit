@@ -86,7 +86,7 @@ schedule_list, DList = get_treatment_and_dose(bed, RT_fractions, param, 0, CTLA4
 # Assuming 'params' is your list of parameters
 # Load from CSV
 params = pd.read_csv('parameters.csv').values.tolist()
-sample_size = 5
+sample_size = 3
 sample_size = len(params)
 #print(params)
 # Now you have a list of parameters for each patient
