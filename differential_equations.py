@@ -507,7 +507,8 @@ def radioimmuno_response_model(param, delta_t, free, t_f1, t_f2, D, t_rad, t_tre
             SF_T[:, k] = np.exp(-1 * alpha_T * D[k] - beta_T * D[k] ** 2)
             # updates cancer cell count by killing off (1-SFC)*C of the cancer cells
            # print('before', newC[0])
-            C_remain = np.random.poisson(newC[0]*SF_C[:,k][0])
+            C_remain = newC[0] * SF_C[:,k][0]
+            #C_remain = np.random.poisson(newC[0]*SF_C[:,k][0])
             C_dead[:, k] = newC[0] - C_remain
            #print(C[:,j])
             # print(SF_C[:,k])
